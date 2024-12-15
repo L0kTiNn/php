@@ -7,6 +7,10 @@
   <title>Таблица умножения</title>
   <link rel="stylesheet" href="style.css">
 </head>
+<?php
+  include 'inc/data.inc.php';
+  include 'inc/lib.inc.php';
+?>
 <body>
   <header>
     <!-- Верхняя часть страницы -->
@@ -43,41 +47,9 @@
     <br>
     <!-- Таблица -->
     <table border='1' width='200'>
-      <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>6</td>
-        <td>8</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>6</td>
-        <td>9</td>
-        <td>12</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>8</td>
-        <td>12</td>
-        <td>16</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>10</td>
-        <td>15</td>
-        <td>20</td>
-        <td>25</td>
-      </tr>
+    <?php
+      getTable((int) $cols, (int) $rows, $color);
+      ?>
     </table>
     <!-- Таблица -->
     <!-- Область основного контента -->
