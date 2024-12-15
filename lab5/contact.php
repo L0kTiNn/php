@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-  $to = "M3xxx404@yandex.ru";
+  $to = "vloktinvl@gmail.com";
   $from = "admin@center.ogu";
   $headers = "From: $from\r\n" .
     "Reply-To: $from\r\n" .
