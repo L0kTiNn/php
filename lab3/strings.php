@@ -7,6 +7,11 @@
 	- Создайте строковую переменную $email и присвойте ей значение 'ivan@petrov.ru'
 	- Создайте строковую переменную $code и присвойте ей значение '<?=$login?>'
 	*/
+    $login = ' User ';
+    $password = 'megaP@ssw0rd';
+    $name = 'иван';
+    $email = 'ivan@petrov.ru';
+    $code = '<?=$login?>';
 ?>
 <!doctype html>
 <html>
@@ -25,6 +30,44 @@
 	- Используя функцию фильтрации переменных проверьте корректность значения $email
 	- Используя строковые функции выведите значение переменной $code в браузер в том же виде как она задана в коде
 	*/
+    $login = trim(strtolower($login));
+
+    function chekPassword($password) {
+        if (strlen($password) < 8) {
+            return $password;
+        }
+        elseif (!preg_match('/[A-Z]/', $password)){
+            return false;
+        }
+        elseif (!preg_match('/[a-z]/', $password)) {
+            return false;
+        }
+        elseif (!preg_match('/[0-9]/', $password)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    $passValid = chekPassword($password) ? 'Пароль сложный' : 'Пароль простой';
+    
+    # $name = ucfirst($name);
+    $name = mb_convert_case($name, MB_CASE_TITLE,'UTF-8');
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Email '$email' является корректным.";
+    } else {
+        echo "Email '$email' является некорректным.";
+    }
+
+    htmlspecialchars($code);
+
+
 ?>
+<p>Логин после проверки: <?= $login ?></p>
+<p>Пароль после проверки: <?= $passValid ?></p>
+<p>Имя после проверки: <?= $name ?></p>
+<p>Email после проверки: <?= $email ?></p>
+<p>Code после проверки: <?= htmlspecialchars($code)?></p>
+
 </body>
 </html>

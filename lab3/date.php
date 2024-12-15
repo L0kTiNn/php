@@ -1,4 +1,5 @@
 <?php
+	
 	/*
 	ЗАДАНИЕ 1
 	- Присвойте переменной $now значение метки времени актуальной даты(сегодня)
@@ -6,6 +7,11 @@
 	- Создайте переменную $hour
 	- С помощью функции getdate() присвойте переменной $hour текущий час
 	*/
+
+	$now = time();
+    # echo date('Y-m-d H:i:s', $now);
+    $birthday = mktime(0,0,0, 7, 28, 2004);
+    $hour = getdate()['hours'];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -18,6 +24,7 @@
 <body>
 	<h1>Использование функций даты и времени</h1>
 	<?php
+
 	/*
 	ЗАДАНИЕ 2
 	- Используя управляющую конструкцию if – elseif - else присвойте 
@@ -37,6 +44,51 @@
 	- На отдельной строке выведите фразу "До моего дня рождения осталось "
 	- Выведите количество дней, часов, минут и секунд оставшееся до Вашего дня рождения
 	*/
+	if ($hour >=0 && $hour < 6) {
+        $welcom = 'Доброй ночи';
+    } elseif ($hour >= 6 && $hour <12) {
+        $welcom = 'Доброе утро';
+    } elseif ($hour >=12 && $hour <18) {
+        $welcom = 'Добрый день';
+    } elseif ($hour >=18  && $hour <23) {
+        $welcom = 'Добрый вечер';
+    } else {
+        $welcom = 'Доброй ночи';
+    }
+    
+
+    setlocale(LC_TIME, 'ru_RU.UTF-8');
+
+     $fmt = datefmt_create(
+        'ru_RU',
+        IntlDateFormatter::FULL,
+        IntlDateFormatter::FULL,
+        'Europe/Moscow',
+        IntlDateFormatter::GREGORIAN,
+        "Сегодня d MMMM Y года, EEEE H:mm:ss"
+    );
+
+    $formateDate = datefmt_format($fmt, $now);
+
+    $timeBirthday = $birthday - $now;
+
+    if ($timeBirthday < 0) {
+		$birthday = mktime(0,0,0, 7, 28, (int) date('Y') + 1);
+		$timeBirthday = $birthday - $now;
+	}
+
+	$days = floor($timeBirthday / (60*60*24));
+	$hours = floor(($timeBirthday % (60*60*24)) / (60*60));
+	$minutes = floor(($timeBirthday % (60*60)) / 60);
+	$seconds = $timeBirthday % 60;
+
+
+
 	?>
+	<p><?= $welcom ?>
+	<p><?= $formateDate ?>
+	<p>До моего дня рождения: <?= "$days дней, $hours часов, $minutes минут, $seconds секунд"?>
+
+	
 </body>
 </html>
