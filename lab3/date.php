@@ -67,15 +67,20 @@
         IntlDateFormatter::GREGORIAN,
         "Сегодня d MMMM Y года, EEEE H:mm:ss"
     );
-
+ 
     $formateDate = datefmt_format($fmt, $now);
 
-    $timeBirthday = $birthday - $now;
+    
+    $currentYear = (int) date('Y');
+    $birthdayThisYear = mktime(0, 0, 0, 7, 28, $currentYear);
 
-    if ($timeBirthday < 0) {
-		$birthday = mktime(0,0,0, 7, 28, (int) date('Y') + 1);
-		$timeBirthday = $birthday - $now;
-	}
+    if ($birthdayThisYear < $now) {
+        
+        $birthdayThisYear = mktime(0, 0, 0, 7, 28, $currentYear + 1);
+    }
+
+    $timeBirthday = $birthdayThisYear - $now;
+
 
 	$days = floor($timeBirthday / (60*60*24));
 	$hours = floor(($timeBirthday % (60*60*24)) / (60*60));
